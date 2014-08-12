@@ -1,5 +1,3 @@
-== README
-
 # KONFIRMAME - Confirmation platform for recurring events.
 
 Plataforma de confirmación para eventos recurrentes.
@@ -22,13 +20,13 @@ Gems used:
 
 ## Contributors
 
-* Javier Gradiche ([@javiergradiche][github-javiergradiche])
+* Javier Gradiche [@javiergradiche](github-javiergradiche)
 
 ---
 
 ## Issues?
 
-Use the GitHub [issue tracker][konfirmame]
+Use the GitHub [issue tracker](https://github.com/javiergradiche/konfirmame/issues)
 
 ---
 
