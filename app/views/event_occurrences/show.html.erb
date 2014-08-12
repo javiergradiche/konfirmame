@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event_occurrence.event_id %>
+</p>
+
+<p>
+  <strong>When:</strong>
+  <%= @event_occurrence.when %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @event_occurrence.state %>
+</p>
+
+<p>
+  <strong>Aforo:</strong>
+  <%= @event_occurrence.aforo %>
+</p>
+
+<p>
+  <strong>Confirmations:</strong>
+  <%= @event_occurrence.confirmations %>
+</p>
+
+<%= link_to 'Edit', edit_event_occurrence_path(@event_occurrence) %> |
+<%= link_to 'Back', event_occurrences_path %>

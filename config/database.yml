@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  host: localhost
+
+development:
+  <<: *default
+  encoding: unicode
+  database: konfirmame_dev
+  pool: 5
+  username: <%= ENV['DB_ENV_POSTGRESQL_USER'] %>
+  password: <%= ENV['DB_ENV_POSTGRESQL_PASS'] %>
+  port: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+
+test:
+  <<: *default
+  encoding: unicode
+  database: konfirmame_test
+  pool: 5
+  username: <%= ENV['DB_ENV_POSTGRESQL_USER'] %>
+  password: <%= ENV['DB_ENV_POSTGRESQL_PASS'] %>
+  port: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>

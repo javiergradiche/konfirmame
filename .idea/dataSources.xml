@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1477912253">
+    <data-source source="LOCAL" name="Rails konfirmame: development" uuid="36bd05d7-e94a-4034-933e-87bbb00e548b">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:&lt;%= ENV['DB_PORT_5432_TCP_ADDR'] %&gt;/konfirmame_dev</jdbc-url>
+      <user-name>&lt;%= ENV['DB_ENV_POSTGRESQL_USER'] %&gt;</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfeedfe8dff5dfefdfe4dffcdff5dffadfe5dff9dffedfeddff8dfefdff9dffbdfe6dff5dffadfebdff9dff9df8ddff7df8adf8fdf94</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails konfirmame: test" uuid="61f24449-89d8-4b74-a4ef-f7d7cb39e24b">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:&lt;%= ENV['DB_PORT_5432_TCP_ADDR'] %&gt;/konfirmame_test</jdbc-url>
+      <user-name>&lt;%= ENV['DB_ENV_POSTGRESQL_USER'] %&gt;</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfeedfe8dff5dfefdfe4dffcdff5dffadfe5dff9dffedfeddff8dfefdff9dffbdfe6dff5dffadfebdff9dff9df8ddff7df8adf8fdf94</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

@@ -1,0 +1,35 @@
+<h1>Listing event_occurrences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>When</th>
+      <th>State</th>
+      <th>Aforo</th>
+      <th>Confirmations</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_occurrences.each do |event_occurrence| %>
+      <tr>
+        <td><%= event_occurrence.event_id %></td>
+        <td><%= event_occurrence.when %></td>
+        <td><%= event_occurrence.state %></td>
+        <td><%= event_occurrence.aforo %></td>
+        <td><%= event_occurrence.confirmations %></td>
+        <td><%= link_to 'Show', event_occurrence %></td>
+        <td><%= link_to 'Edit', edit_event_occurrence_path(event_occurrence) %></td>
+        <td><%= link_to 'Destroy', event_occurrence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New event_Occurrence', new_event_occurrence_path %>
