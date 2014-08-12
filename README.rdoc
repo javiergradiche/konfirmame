@@ -1,28 +1,40 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# KONFIRMAME - Confirmation platform for recurring events.
 
-Things you may want to cover:
+Plataforma de confirmación para eventos recurrentes.
 
-* Ruby version
+---
 
-* System dependencies
+```bash
+clone and deploy
+```
 
-* Configuration
+---
 
-* Database creation
+Gems used:
+* devise
+* mandrill-api
+* aasm
+* ice_cube
 
-* Database initialization
+---
 
-* How to run the test suite
+## Contributors
 
-* Services (job queues, cache servers, search engines, etc.)
+* Javier Gradiche ([@javiergradiche][github-javiergradiche])
 
-* Deployment instructions
+---
 
-* ...
+## Issues?
 
+Use the GitHub [issue tracker][konfirmame]
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+---
+
+## Contributing
+
+* Contributions are welcome - I use GitHub for issue
+	tracking (accompanying failing tests are awesome) and feature requests
+* Submit via fork and pull request (include tests)
+* If you're working on something major, shoot me a message beforehand
