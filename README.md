@@ -20,7 +20,7 @@ Gems used:
 
 ## Contributors
 
-* Javier Gradiche [@javiergradiche](github-javiergradiche)
+* Javier Gradiche (KEANTS) [@javiergradiche](https://github.com/javiergradiche/)
 
 ---
 
