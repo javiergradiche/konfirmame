@@ -728,7 +728,11 @@
       <created>1407869989734</created>
       <updated>1407869989734</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="readme issue tracker link">
+      <created>1407869998319</created>
+      <updated>1407869998319</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
