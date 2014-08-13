@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :set_notification, only: [:show, :edit, :update, :destroy]
+  before_action :set_notification, only: [:show, :edit, :update, :destroy, :open, :confirm, :reject, :pospose]
 
   # GET /notifications
   # GET /notifications.json
@@ -63,6 +63,30 @@ class NotificationsController < ApplicationController
 
   def send_pending
     @notifications = []
+  end
+
+  def open
+    @event_occurrence = @notification.event_occurrence
+    @notification.update_state!('opened')
+    render 'event_occurrences/stats'
+  end
+
+  def reject
+    @event_occurrence = @notification.event_occurrence
+    @notification.update_state!('rejected')
+    render 'event_occurrences/stats'
+  end
+
+  def confirm
+    @event_occurrence = @notification.event_occurrence
+    @notification.update_state!('confirmed')
+    render 'event_occurrences/stats'
+  end
+
+  def pospose
+    @event_occurrence = @notification.event_occurrence
+    @notification.update_state!('posposed')
+    render 'event_occurrences/stats'
   end
 
   private

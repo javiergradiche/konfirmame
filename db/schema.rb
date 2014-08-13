@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812151021) do
+ActiveRecord::Schema.define(version: 20140812215124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140812151021) do
     t.integer  "first_call"
     t.integer  "last_call"
     t.integer  "call_hour"
+    t.integer  "rush_start"
   end
 
   create_table "notifications", force: true do |t|

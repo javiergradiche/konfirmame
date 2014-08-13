@@ -16,7 +16,7 @@ class Event < ActiveRecord::Base
   validates :start_date, presence: true
 	validates :recurring_rule, presence: true
 	validates :state, presence: true
-	validates :first_call, :last_call, :call_hour, presence: true
+	validates :first_call, :rush_start, :call_hour, presence: true
 
 	after_save :update_occurrences
   before_save :update_start_date

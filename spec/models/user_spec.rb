@@ -20,8 +20,15 @@ RSpec.describe User, :type => :model do
     it "is invalid without password lengh < 8" do
     	user = FactoryGirl.build(:user, password: '1234567', password_confirmation: '1234567')
     	expect(user).to_not be_valid
-    end  
-  
+    end
+    it "is invalid without first name" do
+      user = FactoryGirl.build(:user, first_name: nil)
+      expect(user).to_not be_valid
+    end
+    it "is invalid without last name" do
+      user = FactoryGirl.build(:user, last_name: nil)
+      expect(user).to_not be_valid
+    end
   end
 
   describe "Business" do

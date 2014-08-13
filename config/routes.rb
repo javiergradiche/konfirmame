@@ -8,7 +8,13 @@ Konfirmame::Application.routes.draw do
   get "home/index"
   root 'home#index'
   
+  get '/notification/:id/open' => 'notifications#open', as: :notification_open
+  get '/notification/:id/confirm' => 'notifications#confirm', as: :notification_confirm
+  get '/notification/:id/reject' => 'notifications#reject', as: :notification_reject
+
   resources :notifications do
+    member do
+    end
     collection do
       get 'send_pending' => 'notifications#send_pending', as: :send_pendings
       put '/action/:action'

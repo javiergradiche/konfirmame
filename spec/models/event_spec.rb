@@ -37,8 +37,8 @@ RSpec.describe Event, :type => :model do
       event = FactoryGirl.build(:event, first_call: nil)
       expect(event).to_not be_valid
     end
-    it "is invalid without last_call" do
-      event = FactoryGirl.build(:event, last_call: nil)
+    it "is invalid without rush_start" do
+      event = FactoryGirl.build(:event, rush_start: nil)
       expect(event).to_not be_valid
     end
     it "is invalid without call_hour" do
@@ -135,16 +135,14 @@ RSpec.describe Event, :type => :model do
       expect(event).to have(4).notifications
     end
 
+    it "notify aforo completed"
+
   end
 
   describe "Mailers" do
 
     it "send mail when you added to event"
     it "send mail when you removed from event"
-    context "send mail asking for confirmation" do
-      it "before event due date"
-      it "event due date"
-    end
     context "send mail inform with occurrence state" do
       it "event not afored"
       it "event afored"

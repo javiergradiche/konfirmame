@@ -30,25 +30,77 @@ RSpec.describe Notification, :type => :model do
 
   describe "Business" do
 
-    let(:dt_event) { dt_event = Time.utc(2013, 5, 1, 16, 0) }
-    let(:rule) { rule = schedule_2_times.add_recurrence_rule IceCube::Rule.daily.count(2) }
-    let(:event) { event = FactoryGirl.create(:event) }
-    let(:user) { user = FactoryGirl.create(:user) }
-    before {
-      event.add_user(user)
-    }
+    let(:user) { FactoryGirl.create(:user)}
+    let(:event){ FactoryGirl.create(:every_saturday_event) }
 
     context "Prepare package to send" do
       it "not get notification before first_call" do
-
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 8, 16, 0)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(0).items
       end
-      it "not get notification after event_date"
-      it "not get notification after last_call"
-      it "get notification if are not accepted or rejected"
-      it "get notification if are pending"
-      it "get notification if are sended and pass more than 20 hours"
-      it "get notification if are sended and you are at rush hour"
-      it "get notification between first_call and last_call"
+
+      it "not get notification after event_date" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 14, 16, 0)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(0).items
+      end
+
+      it "not get notification if are confirmed or rejected" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 12, 10, 30)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(1).items
+        event.notifications.update_all(:state => 'confirmed')
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(0).items
+        event.notifications.update_all(:state => 'rejected')
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(0).items
+      end
+      it "get notification if are pending, opened or sent" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 12, 10, 5)
+
+        notifications = Notification.get_shippables(now) #pending
+        expect(notifications).to have(1).items
+
+        event.notifications.update_all(:state => 'sent')
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(1).items
+
+        event.notifications.update_all(:state => 'opened')
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(1).items
+      end
+      it "not get notification if you are not at sending hour" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 11, 16, 0)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(0).items
+      end
+      it "get notification if you are at sending hour" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 11, 10, 5)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(1).items
+      end
+      it "get notification if are are not at sending hours but rush_hours" do
+        event.add_user(user)
+        expect(event).to be_valid
+        now = Time.utc(2014, 4, 13, 13, 0)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(1).items
+      end
+
     end
 
     context "Send" do
