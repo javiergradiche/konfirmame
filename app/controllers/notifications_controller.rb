@@ -83,12 +83,6 @@ class NotificationsController < ApplicationController
     render 'event_occurrences/stats'
   end
 
-  def pospose
-    @event_occurrence = @notification.event_occurrence
-    @notification.update_state!('posposed')
-    render 'event_occurrences/stats'
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_notification
