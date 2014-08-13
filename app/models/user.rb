@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :notifications
 	has_many :events, :through => :user_events
 
-  validates :first_name, :last_name, :presence => true
+  validates :first_name, :last_name, :autconfirm, :presence => true
 
   def has_event?(event)
   	event.user_events.pluck(:user_id).include? self.id

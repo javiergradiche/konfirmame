@@ -7,5 +7,9 @@ FactoryGirl.define do
     password_confirmation "example123"  
     first_name "Javier"
     last_name "Gradiche"
+    autconfirm false
+    factory :user_autoconfirm do
+      autoconfirm true
+    end
   end
 end

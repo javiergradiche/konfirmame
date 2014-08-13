@@ -114,6 +114,24 @@ RSpec.describe Event, :type => :model do
       it "can delete future occurrences"
     end
 
+    context "Add Users" do
+      let(:user) { user = FactoryGirl.create(:user) }
+      let(:user) { user = FactoryGirl.create(:user_autoconfirm) }
+
+      it "add_user with not autoconfirm and create 1 notification pending (0 confirmed)" do
+        event.add_user(user)
+        expect(event).to have(1).notifications
+        expect(event.notifications.first.state).to eq('pending')
+        expect(event.occurrences.first.conf_num).to eq(1)
+      end
+      it "add_user with autoconfirm and create 1 notification confirmed (1confirmed)" do
+        event.add_user(user_autoconfirm)
+        expect(event).to have(1).notifications
+        expect(event.notifications.first.state).to eq('confirmed')
+        expect(event.occurrences.first.conf_num).to eq(1)
+      end
+
+    end
   end
   context "Notifications" do
     let(:user) { user = FactoryGirl.create(:user) }
