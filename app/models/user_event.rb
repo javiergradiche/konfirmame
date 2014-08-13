@@ -21,9 +21,10 @@ class UserEvent < ActiveRecord::Base
         :event_id => self.event_id,
         :start_datetime => (occurrence.start_datetime - (self.event.first_call).days),
         :end_datetime => occurrence.start_datetime,
-        :state => 'pending',
+        :state => (self.user.autoconfirm?)? 'confirmed' : 'pending',
         :rush_start => (occurrence.start_datetime - (self.event.rush_start).hours)
       )
+      occurrence.update_confirmations!
     end
   end
 

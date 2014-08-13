@@ -116,21 +116,42 @@ RSpec.describe Event, :type => :model do
 
     context "Add Users" do
       let(:user) { user = FactoryGirl.create(:user) }
-      let(:user) { user = FactoryGirl.create(:user_autoconfirm) }
+      let(:user_autoconfirm) { user_autoconfirm = FactoryGirl.create(:user_autoconfirm) }
 
       it "add_user with not autoconfirm and create 1 notification pending (0 confirmed)" do
         event.add_user(user)
         expect(event).to have(1).notifications
         expect(event.notifications.first.state).to eq('pending')
-        expect(event.occurrences.first.conf_num).to eq(1)
+        expect(event.event_occurrences.first.num_confirm).to eq(0)
       end
       it "add_user with autoconfirm and create 1 notification confirmed (1confirmed)" do
         event.add_user(user_autoconfirm)
         expect(event).to have(1).notifications
         expect(event.notifications.first.state).to eq('confirmed')
-        expect(event.occurrences.first.conf_num).to eq(1)
+        expect(event.event_occurrences.first.num_confirm).to eq(1)
       end
-
+      it "add_2 user with autoconfirm and create 2 notification confirmed (2 confirmed)" do
+        event.add_user(user_autoconfirm)
+        expect(event).to have(1).notifications
+        expect(event.notifications.first.state).to eq('confirmed')
+        expect(event.event_occurrences.first.num_confirm).to eq(1)
+        user_autoconfirm2 = FactoryGirl.create(:user_autoconfirm, :email => "example2@example.com")
+        event.add_user(user_autoconfirm2)
+        expect(event).to have(2).notifications
+        expect(event.notifications.last.state).to eq('confirmed')
+        expect(event.event_occurrences.first.num_confirm).to eq(2)
+      end
+      it "add 1 user with autoconfirm and 1 user wo and create 1 notification confirmed (1 confirmed)" do
+        event.add_user(user_autoconfirm)
+        expect(event).to have(1).notifications
+        expect(event.notifications.first.state).to eq('confirmed')
+        expect(event.event_occurrences.first.num_confirm).to eq(1)
+        user2 = FactoryGirl.create(:user, :email => "example2@example.com")
+        event.add_user(user2)
+        expect(event).to have(2).notifications
+        expect(event.notifications.last.state).to eq('pending')
+        expect(event.event_occurrences.first.num_confirm).to eq(1)
+      end
     end
   end
   context "Notifications" do

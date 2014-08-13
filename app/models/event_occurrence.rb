@@ -30,4 +30,9 @@ class EventOccurrence < ActiveRecord::Base
     end
   end
 
+  def update_confirmations!
+    self.num_confirm = self.notifications.where(:state => 'confirmed').sum(1)
+    self.save
+  end
+
 end
