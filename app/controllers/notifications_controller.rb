@@ -61,25 +61,35 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def send_pending
-    @notifications = []
+  def send_shippeables
+    if (params[:datetime])
+      datetime = params[:datetime].to_datetime
+    else
+      datetime = Time.now
+    end
+    @notifications = Notification.get_shippables(datetime)
+    Notification.send_shippable_package(@notifications)
   end
 
   def open
     @event_occurrence = @notification.event_occurrence
-    @notification.update_state!('opened')
+    @notification.update_state!(NotificationStatusOpened.new)
     render 'event_occurrences/stats'
   end
 
   def reject
     @event_occurrence = @notification.event_occurrence
-    @notification.update_state!('rejected')
+    @notification.update_state!(NotificationStatusRejected.new)
     render 'event_occurrences/stats'
   end
 
   def confirm
     @event_occurrence = @notification.event_occurrence
-    @notification.update_state!('confirmed')
+    if @event_occurrence.full?
+      @notification.update_state!(NotificationStatusDenied.new)
+    else
+      @notification.update_state!(NotificationStatusConfirmed.new)
+    end
     render 'event_occurrences/stats'
   end
 

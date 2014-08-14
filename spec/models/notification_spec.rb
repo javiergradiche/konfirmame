@@ -32,6 +32,8 @@ RSpec.describe Notification, :type => :model do
 
     let(:user) { FactoryGirl.create(:user)}
     let(:event){ FactoryGirl.create(:every_saturday_event) }
+    let(:user2) { FactoryGirl.create(:user, :email => 'mail2@example.com')}
+    let(:event2){ FactoryGirl.create(:every_saturday_event) }
 
     context "Prepare package to send" do
       it "not get notification before first_call" do
@@ -92,6 +94,21 @@ RSpec.describe Notification, :type => :model do
         now = Time.utc(2014, 4, 11, 10, 5)
         notifications = Notification.get_shippables(now)
         expect(notifications).to have(1).items
+      end
+      it "get 2 notification for 2 events if you are at sending hour" do
+        event.add_user(user)
+        event2.add_user(user2)
+        now = Time.utc(2014, 4, 11, 10, 5)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(2).items
+      end
+      it "get 3 notification for 2 events (1user 2events) if you are at sending hour" do
+        event.add_user(user)
+        event.add_user(user2)
+        event2.add_user(user2)
+        now = Time.utc(2014, 4, 11, 10, 5)
+        notifications = Notification.get_shippables(now)
+        expect(notifications).to have(3).items
       end
       it "get notification if are are not at sending hours but rush_hours" do
         event.add_user(user)

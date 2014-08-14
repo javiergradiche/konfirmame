@@ -11,8 +11,7 @@ class Notification < ActiveRecord::Base
 
   scope :next, -> { where('notifications.start_datetime > ?', Time.now) }
 
-  scope :shippable, -> (now) {
-    where('notifications.state in (?)', ['pending','sent','opened'])
+  scope :shippable, ->(now) { where('notifications.state in (?)', ['pending','sent','opened'])
     .where('notifications.start_datetime <= (?)', now)
     .where('notifications.end_datetime >= (?)', now)
   }
@@ -43,31 +42,47 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def send!
-    NotificationMailer.ask_confirmation_mandrill(self).deliver
-    self.state = 'sent'
-    self.last_shipping = Time.now
-    self.save
-  end
+  # def send!
+  #   if (self.state == 'pending')
+  #     NotificationMailer.ask_confirmation_mandrill(self).deliver
+  #     self.state = 'sent'
+  #   elsif (self.state == 'denied')
+  #     NotificationMailer.ask_confirmation_mandrill(self).deliver
+  #   end
+  #   NotificationMailer.
+  #   self.last_shipping = Time.now
+  #   self.save
+  # end
+
 
   def self.get_shippables(datetime)
     notifications = Notification.shippable(datetime)
     shippable_notifications = []
     notifications.each do |notification|
       if notification.shippable?(datetime)
-        notification.send!
+        # notification.send!
         shippable_notifications << notification
       end
     end
     shippable_notifications
   end
 
-  def update_state!(state)
-    self.state = state
-    unless (self.event_occurrence.add_confirmation!)
-      self.state = 'denied'
-    end
+  def update_state!(notification_status)
+    self.state = notification_status.state
+    self.save
+    self.event_occurrence.update_confirmations!
+    self.send!(notification_status)
+  end
+
+  def send!(notification_status)
+    notification_status.send_mail
+    self.last_shipping = Time.now
     self.save
   end
 
+  def self.send_shippable_package(notifications)
+    notifications.each do |notification|
+      notification.send(NotificationStatusPending.new)
+    end
+  end
 end

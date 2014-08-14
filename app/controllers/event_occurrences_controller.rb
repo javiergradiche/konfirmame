@@ -1,5 +1,5 @@
 class EventOccurrencesController < ApplicationController
-  before_action :set_occurrence, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_occurrence, only: [:show, :edit, :update, :destroy]
 
   # GET /event_occurrences
   # GET /event_occurrences.json
@@ -56,19 +56,19 @@ class EventOccurrencesController < ApplicationController
   def destroy
     @event_occurrence.destroy
     respond_to do |format|
-      format.html { redirect_to occurrences_url }
+      format.html { redirect_to event_occurrences_url }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_occurrence
+    def set_event_occurrence
       @event_occurrence = EventOccurrence.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def occurrence_params
-      params.require(:occurrence).permit(:event_id, :when, :state, :aforo, :confirmations)
+    def event_occurrence_params
+      params.require(:event_occurrence).permit(:event_id, :when, :state, :aforo, :confirmations)
     end
 end

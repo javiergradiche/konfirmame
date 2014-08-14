@@ -64,3 +64,7 @@ gem 'aasm'
 gem 'mandrill-api'
 gem 'devise',           '>= 2.0.0'
 # gem 'devise_invitable', '~> 1.3.4'
+
+
+gem "therubyracer"
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

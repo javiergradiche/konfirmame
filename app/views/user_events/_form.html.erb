@@ -1,30 +1,32 @@
-<%= form_for(@user_event) do |f| %>
-  <% if @user_event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_event.errors.count, "error") %> prohibited this user_event from being saved:</h2>
-
-      <ul>
-      <% @user_event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @user_event, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :event_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :event_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :state, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :state, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :autoconfirm, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :autoconfirm, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :event_id %><br>
-    <%= f.number_field :event_id %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-    <%= f.select_recurring :state %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                user_events_path, :class => 'btn' %>
   </div>
 <% end %>

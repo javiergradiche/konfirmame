@@ -7,11 +7,6 @@ class UserEvent < ActiveRecord::Base
 	validates :event_id, presence: true
 	validates :user_id, presence: true
 	validates :state, presence: true
-	
-	# include AASM
-  # aasm :column => 'state' do
-
-  # end
 
   def update_notifications
     Notification.next.where(:user => self.user, :event => self.event).destroy_all
@@ -21,7 +16,7 @@ class UserEvent < ActiveRecord::Base
         :event_id => self.event_id,
         :start_datetime => (occurrence.start_datetime - (self.event.first_call).days),
         :end_datetime => occurrence.start_datetime,
-        :state => (self.user.autoconfirm?)? 'confirmed' : 'pending',
+        :state => (self.autoconfirm?)? 'confirmed' : 'pending',
         :rush_start => (occurrence.start_datetime - (self.event.rush_start).hours)
       )
       occurrence.update_confirmations!

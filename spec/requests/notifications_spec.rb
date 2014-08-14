@@ -78,4 +78,32 @@ RSpec.describe "Notifications", :type => :request do
     end
 
   end
+  describe "MAIL Responses to Actions" do
+
+    let(:user) { FactoryGirl.create(:user)}
+    let(:user_autoconfirm) { FactoryGirl.create(:user_autoconfirm, :email => 'mail2@example.com') }
+    let(:event){ FactoryGirl.create(:every_saturday_event, :aforo => 1) }
+
+    it "notify aforo completed when you confirm" do
+      event.add_user(user_autoconfirm)
+      event.add_user(user)
+
+      now = Time.utc(2014, 4, 12, 10, 5)
+      shippables_notifications = Notification.get_shippables(now) #pending
+      expect(shippables_notifications).to have(1).items
+      expect(event.notifications).to have(2).items
+
+      get notification_confirm_path(shippables_notifications.first.id)
+      expect(response.status).to be(200)
+
+      notification = event.notifications.last
+      expect(notification.state).to eq('denied')
+
+    end
+
+    it "send email with aforo complete" do
+
+    end
+
+  end
 end

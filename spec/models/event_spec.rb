@@ -173,9 +173,6 @@ RSpec.describe Event, :type => :model do
       event.add_user(user2)
       expect(event).to have(4).notifications
     end
-
-    it "notify aforo completed"
-
   end
 
   describe "Mailers" do

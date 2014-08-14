@@ -46,13 +46,14 @@ class Event < ActiveRecord::Base
     # bindiny.pry
      # errors.add(:recurring_rule, "is not valid") unless  RecurringSelect.is_valid_rule?(self.recurring_rule)
   end
-
+  #
   def schedule=(schedule)
     self.recurring_rule = schedule.to_yaml
   end
 
   def schedule
-    self.schedule = IceCube::Schedule.from_yaml(self.recurring_rule)
+    self.schedule = IceCube::Schedule.from_yaml(self.recurring_rule).count()
+    self.schedule.start_time(self.start_date)
   end
 
   def get_schedule_occurrences(quant = nil)

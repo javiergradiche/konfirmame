@@ -1,35 +1,44 @@
-<h1>Listing event_occurrences</h1>
-
-<table>
+<%- model_class = EventOccurrence -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Event</th>
-      <th>When</th>
-      <th>State</th>
-      <th>Aforo</th>
-      <th>Confirmations</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:event_id) %></th>
+      <th><%= model_class.human_attribute_name(:start_datetime) %></th>
+      <th><%= model_class.human_attribute_name(:state) %></th>
+      <th><%= model_class.human_attribute_name(:aforo) %></th>
+      <th><%= model_class.human_attribute_name(:num_confirm) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @event_occurrences.each do |event_occurrence| %>
       <tr>
+        <td><%= link_to event_occurrence.id, event_occurrence_path(event_occurrence) %></td>
         <td><%= event_occurrence.event_id %></td>
-        <td><%= event_occurrence.when %></td>
+        <td><%= event_occurrence.start_datetime %></td>
         <td><%= event_occurrence.state %></td>
         <td><%= event_occurrence.aforo %></td>
-        <td><%= event_occurrence.confirmations %></td>
-        <td><%= link_to 'Show', event_occurrence %></td>
-        <td><%= link_to 'Edit', edit_event_occurrence_path(event_occurrence) %></td>
-        <td><%= link_to 'Destroy', event_occurrence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= event_occurrence.num_confirm %></td>
+        <td><%=l event_occurrence.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_event_occurrence_path(event_occurrence), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      event_occurrence_path(event_occurrence),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New event_Occurrence', new_event_occurrence_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_event_occurrence_path,
+            :class => 'btn btn-primary' %>

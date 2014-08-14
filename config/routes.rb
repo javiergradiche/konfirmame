@@ -16,7 +16,7 @@ Konfirmame::Application.routes.draw do
     member do
     end
     collection do
-      get 'send_pending' => 'notifications#send_pending', as: :send_pendings
+      get 'send_shippables' => 'notifications#send_shippables', as: :send_shippeables
       put '/action/:action'
     end
   end
