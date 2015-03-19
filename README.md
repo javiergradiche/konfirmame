@@ -1,6 +1,4 @@
-# KONFIRMAME - Confirmation platform for recurring events.
-
-Plataforma de confirmación para eventos recurrentes.
+# KONFIRMAME - Platform for recurring events
 
 ---
 
